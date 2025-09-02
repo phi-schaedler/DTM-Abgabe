@@ -228,21 +228,44 @@ Eine animierte GIF Sequenz zeigt, wie Orkan Daria Ende Januar 1990 mit seine
 # EP.08 | Animationen in QGIS 
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_08.png)
 ## Ergebnis
-Eine statische Karte zeigt alle in der Nacht vom 3./4. Januar 2025 erfassten Leoniniden Meteore über Deutschand und Umgebung – jede Bahn als farblich abgestufte Linie vom Eintrittspunkt bis zum Verglühen.
+Eine statische Karte (PNG) zeigt alle in der Nacht vom 17./18. November 2024 erfassten Leoniniden Meteore über Deutschand und Umgebung – jede Bahn als farblich abgestufte Linie vom Eintrittspunkt bis zum Verglühen. Zur Visualisierung von Meteorschauern konnten offene Datenquellen genutzt werden. 
 ## Arbeitsschritte
-1. Datenbeschaffung – Leoniden Messungen für den 17./18. 01 2025 als CSV von der öffentlichen Meteor-Map [herunterladen](https://tammojan.github.io/meteormap/). 
-2. Datenaufbereitung – für eine Animation wäre Datum/ Zeit in einem korrekten QGIS-Format notwendig (hier wird nur die Gesamtheit der Meteore dieser Nacht in einer PNG dargestellt) 
-3. Geometrieerzeugung – mit „Geometrie nach Ausdruck“ eine Linie aus Start  und Endkoordinate jeder Spur generieren.
-4. Hintergrund – ESRI Background Map (Dark); alternativ können auch Geometrien von Natural Earth genuttz werden. 
-5. Symbolisierung – interpolierter Farbverlauf (z. B. Gelb → Violett) und reduzierte Deckkraft, um Überlagerungen sichtbar zu halten. 
-6. Kartenelemente – Titel, Maßstab und Quellenangabe hinzufügen
-7. Export – Layout im gewünschten Maßstab als PNG 1080x1080px
+1. __Datenbeschaffung__
+    * Leoniden Messungen für den 17./18. 01 2025 als CSV von der öffentlichen Meteor-Map [herunterladen](https://tammojan.github.io/meteormap/)
+    * Die Beobachtungsdaten (Startzeit, Koordinaten, ggf. Helligkeit) können damit in QGIS importiert werden
+    * Informationen über unterschiedliche Metoritenschauer können sich [hier](https://www.meteorshowers.org/) visuell ansprechend betrachtet werden
+2. __Datenaufbereitung__
+    * Projektion auf _EPSG:4326_ setzen
+    * Grenzen der BRD hinzufügen
+    * Es ist auch möglich mit Python den Zeitstempel in ein Datetime-Format umzuwandeln (`"pd.to_datetime(...)"`)
+3. __Geometrieerzeugung__ 
+    * mit _Geometrie nach Ausdruck_ Linien aus Start  und Endkoordinate der Meteorspuren erzeugen
+4. __Symbolisierung und Layout__
+    * Linien als einfache oder interpolierte Farbverläufe darstellen (z. B. Gelb → Violett oder Grün → Rot)
+    * Transparenz und Farbverläufe helfen, Überlagerungen sichtbar zu machen
+    * Maßstab und Titel ergänzen; Hintergrundkarten (ESRI Dark Map) verbessern die Lesbarkeit
+5. __Zeitliche Darstellung & Animation__ _(Nach Bedarf zusätzlich zum PNG)_
+    * Zeitsteuerung in den Layereigenschaften aktivieren (_Einzelfeld mit Datum/Zeit_)
+    * „Objekte über Zeit sammeln“ einstellen, um den Verlauf sichtbar zu machen
+    * Zeitlabels als beschrifteten Hilfspunkten hinzufügen (z. B. mit `format_date(@map_start_time, 'd. MMMM yyyy')`)
+    * Über das QGIS-Uhrsymbol Animation abspielen und als Einzelbilder exportieren
+    * Externe Programme (z. B. Python, Photoshop) nutzen, um GIFs oder Videos aus den Einzelbildern zu erzeugen
 ## Vorteile der Methode
-* Übersicht – Intuitive Karte auch für Laien leicht zu interpretieren
-* Geringe Tool Abhängigkeit – QGIS Funktionen reichen aus; einmaliger Python-Befehl für Datumskorrektur falls Animation benötigt wird.
+* __Anschaulichkeit__: Dynamische Animationen machen zeitliche Entwicklungen leicht verständlich, auch für Laien
+* __Räumliches Verständnis__: Linien zeigen Start- und Endpunkte, wodurch Flugrichtung, Höhe oder Geschwindigkeit erkennbar werden
+* __Flexibilität__: Darstellung möglich als statische Übersichtskarte, animiertes GIF oder thematische Kartenserie
+* __Atmosphäre & Visual Storytelling__: Dunkle Hintergründe und Farbverläufe erzeugen eindrucksvolle Darstellungen
+* __Open Source__: Umsetzung allein mit QGIS und ggf. kleinen Python-Skripten
 ## Nachteile der Methode
-* Keine Dynamik – zeitlicher Verlauf des Schauers geht verloren.
-* Informationsdichte – zu viele Spuren in einer Grafik können unübersichtlich wirken.
+* __Begrenzte Information__: Ohne Zusatzattribute wie Helligkeit oder Geschwindigkeit bleibt Analyse oberflächlich
+* __Unübersichtlichkeit__: Viele Meteore oder überlagerte Linien erschweren die Interpretation
+* __Technische Einschränkungen__:
+    * QGIS erlaubt keine direkte GIF-Erstellung
+    * Zeitformatierung oft nur über externe Tools möglich
+* __Qualität__: GIFs haben begrenzte Farben und Bildrate; Hintergrundkarten können bei großem Maßstab unscharf wirken
+* __Bedienung & Aufwand__: Viele manuelle Schritte (Datenformatierung, Zeitsteuerung, Export). Layoutpflege und Animationseinstellungen erfordern Fachkenntnisse
+* __Fehlende Interaktivität__: Animationen können nicht pausiert oder zurückgespult werden; statische Karten zeigen keine Dynamik
+
 
 <br><br>
 <a id="EP.09"></a>
