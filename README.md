@@ -2,7 +2,7 @@
 ## Impressum
 Autor: Philipp Schädler
 Herausgeber: BHT  
-Kontakt: phsc3459@bht-berlin.de
+Kontakt: phsc3459@bht-berlin.de & philipp.schaedler@gmail.com
 
 <br><br><br>
 # Inhaltsverzeichnis
@@ -196,10 +196,10 @@ Zwischen 2010 und 2024 verließen rund 7 Mio. Flüchtlinge Syrien. Die F
 <br><br>
 <a id="EP.07"></a>
 <br>
-# EP.07 | Mesh-Daten (Orkan Kyrill)
+# EP.07 | Mesh-Daten (Orkan Daria)
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_07.gif)
 ## Ergebnis
-Eine animierte GIF Sequenz zeigt, wie Orkan Kyrill im Januar 2007 mit seinen Windfeldern über Deutschland hinwegzieht. Jedes Frame enthält Datum und Uhrzeit, sowie die Windvektoren aus dem GRIB Mesh Datensatz. Das Endprodukt lässt sich in Präsentationen oder Online Plattformen einbinden und vermittelt auch Fachfremden den Verlauf des Sturms anschaulich.
+Eine animierte GIF Sequenz zeigt, wie Orkan Daria Ende Januar 1990 mit seinen Windfeldern über Westeuropa hinwegzieht. Jedes Frame enthält Datum und Uhrzeit, sowie die Windvektoren aus dem GRIB Mesh Datensatz. Das Endprodukt lässt sich in Präsentationen oder Online Plattformen einbinden und vermittelt auch Fachfremden den Verlauf des Sturms anschaulich.
 ## Arbeitsschritte
 1. Datenbeschaffung – Verwaltungsgrenzen Deutschlands und den GRIB Datensatz mit Windgeschwindigkeiten [herunterladen](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download) (10m u-component of wind, 10m v-component of wind)
 2. Symbolisierung – Mesh Layer auf Vektor Darstellung umstellen, passendes Farbschema wählen
@@ -225,13 +225,12 @@ Eine animierte GIF Sequenz zeigt, wie Orkan Kyrill im Januar 2007 mit seinen
 <br><br>
 <a id="EP.08"></a>
 <br>
-# EP.08 | Animationen in QGIS (Meteor Shower Quadrantids)
+# EP.08 | Animationen in QGIS 
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_08.png)
 ## Ergebnis
-Eine statische Karte zeigt alle in der Nacht vom 3./4. Januar 2025 erfassten Quadrantid Meteore über Europa – jede Bahn als farblich abgestufte Linie vom Eintrittspunkt bis zum Verglühen.
-<br>Anmerkung: Qualität leidet deutlich unter der Aufgabenstellung "PNG mit 1080x1080px"
+Eine statische Karte zeigt alle in der Nacht vom 3./4. Januar 2025 erfassten Leoniniden Meteore über Deutschand und Umgebung – jede Bahn als farblich abgestufte Linie vom Eintrittspunkt bis zum Verglühen.
 ## Arbeitsschritte
-1. Datenbeschaffung – Quadrantid Messungen für den 3./4. 01 2025 als CSV von der öffentlichen Meteor-Map [herunterladen](https://tammojan.github.io/meteormap/). 
+1. Datenbeschaffung – Leoniden Messungen für den 17./18. 01 2025 als CSV von der öffentlichen Meteor-Map [herunterladen](https://tammojan.github.io/meteormap/). 
 2. Datenaufbereitung – für eine Animation wäre Datum/ Zeit in einem korrekten QGIS-Format notwendig (hier wird nur die Gesamtheit der Meteore dieser Nacht in einer PNG dargestellt) 
 3. Geometrieerzeugung – mit „Geometrie nach Ausdruck“ eine Linie aus Start  und Endkoordinate jeder Spur generieren.
 4. Hintergrund – ESRI Background Map (Dark); alternativ können auch Geometrien von Natural Earth genuttz werden. 
@@ -251,20 +250,37 @@ Eine statische Karte zeigt alle in der Nacht vom 3./4. Januar 2025 erfasst
 # EP.09 | 2.5D-Gebäudemodelle (Chemnitz)
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_09.png)
 ## Ergebnis
-Für einen kleinen Teil des Dresdner Stadtgebiet wurde eine Karte erzeugt, welche ein 2,5D Gebäudemodell darstellt. Dabei wurden die Höhen aus den öffentlich zugänglichen Shapefiles erzeugt.
+Für einen kleinen Teil des Chemnitzer Stadtgebiets wurde eine Karte erzeugt, welche ein 2,5D Gebäudemodell darstellt. Dabei wurden die Höhen aus den öffentlich zugänglichen Shapefiles LOD2 (Level of Detail 2) erzeugt.
 ## Arbeitsschritte
-1. Datenbeschaffung – offene 3D Gebäudedaten für den gewünschten Ausschnitt [herunterladen](https://www.geodaten.sachsen.de/downloadbereich-digitale-3d-stadtmodelle-4875.html) und in QGIS importieren 
-2. Symbolisierung – in den Layer Eigenschaften den Stil 2.5 D wählen, „H_Objekt“ als Höhenattribut setzen, Blickwinkel auf 90° stellen und Schatten für besser Performance deaktivieren
-3. Farbverlauf – zum Einzelsymbol zurückkehren, untere Einfache Füllung auf Gradientenfüllung umstellen, konischen Verlauf definieren, Koordinatenmodus auf Ansichtsfenster und Spreizung auf Reflektieren stellen 
-4. 3D Parameter – im Reiter 3D Ansicht den Offset als Ausdruck „H_Objekt – H_Absolut“ setzen, um korrekte Gebäudehöhen zu erhalten
-5. Navigation – über Ansicht → 3D Kartenansicht ein Fenster öffnen und das Modell interaktiv prüfen 
-6. Export – gewünschte Kameraperspektive festlegen und als PNG ausgeben; alternativ Layout erstellen und drucken
+1. __Datenbeschaffung__
+    * offene 3D Gebäudedaten für den gewünschten Ausschnitt [herunterladen](https://www.geodaten.sachsen.de/downloadbereich-digitale-3d-stadtmodelle-4875.html) und in QGIS importieren 
+2. __Symbolisierung__
+    * in den Layer Eigenschaften den Stil 2.5 D wählen
+    * „GebMSHoehe“ als Höhenattribut setzen
+    * Blickwinkel auf 90° stellen, Schatten für bessere Performance deaktivieren
+3. __Farbgestaltung__ 
+    * in der Symbolisierung zu _Einzelsymbol_ wechseln 
+    * untere _Einfache Füllung_ eine Gradientenfüllung einstellen und passenden Verlauf auswählen
+    * obere Einfache Füllung ebenfalls entsprechend anpassen um ein ansprechendes Design zu erhalten
+    * Einstellungsmöglichkeiten: Gradiententyp = konisch, Koordinatenmodus = Ansichtsfenster, Spreizung ggf. auf _Reflektieren_
+    * Farben Transparenz oder Zweifarbigkeit können die Illusion verstärken
+4. __3D Einstellungen__ 
+    * im Reiter 3D Ansicht beim Versatz als Ausdruck „GebMSHoehe“ setzen, um korrekte Gebäudehöhen zu erhalten
+    * über _Ansicht_ -> _3D Kartenansicht_ ein separates Fenster öffnen und das Modell interaktiv erkunden
+6. __Export__ 
+    * Hintergründe (z. B. schwarz) können in den Projekteigenschaften gesetzt werden
+    * Ergebnisse lassen sich über _Projekt_ → _Exportieren_ → _als Bild speichern_ oder im Layout als PDF/PNG ausgeben
 ## Vorteile der Methode
-* Open Source – alle Schritte lassen sich mit QGIS ohne externe Software
-* Schnelle Umsetzung – wenige Einstellungen genügen, um ein realitätsnahes 2.5D Modell zu erzeugen 
-* Interaktive Erkundung – Perspektive, Neigung und Zoom lassen sich jederzeit ändern, was das Verständnis der Gebäudestruktur verbessert 
-* Geringe Systemlast – bei moderaten Datengrößen läuft die Darstellung flüssig 
+* Anschauliche Darstellung: Gebäudehöhen werden sichtbar, wodurch ein realistischeres, räumliches Verständnis entsteht
+* Interaktive Erkundung: Frei dreh- und zoombare 3D-Ansichten erleichtern die Analyse von Stadtstrukturen
+* Balance aus Einfachheit und Realität: Modelle sind weniger komplex als vollständige 3D-Geometrien, benötigen weniger Speicher und laufen flüssig bei moderaten Datengrößen
+* Vielfältige Nutzung: Eignet sich für Visualisierung von Höhen, Volumen, Abständen, Sichtachsen oder thematischen Analysen (z. B. Emissionen, Besonnung)
+* Open Source: Umsetzung ausschließlich mit QGIS ohne zusätzliche Software
+* Atlas-Modus: Automatisierte Serienkarten mit konsistentem Layout ermöglichen systematische Visualisierungen und sparen Zeit
 ## Nachteile der Methode
-* Farbdesign – individuelle Farbverläufe einzurichten ist in QGIS umständlich 
-* Performancegrenzen – bei sehr großen oder komplexen Datensätzen kann QGIS ins Stocken geraten 
-* Funktionsumfang – für anspruchsvolle 3 D Analysen sind spezialisierte Programme oft besser geeignet
+* Eingeschränkte Genauigkeit: Dachformen und komplexe Gebäudestrukturen werden nicht realistisch abgebildet, Tiefeninformationen fehlen
+* Visuelle Grenzen: Unter bestimmten Blickwinkeln können Verzerrungen entstehen
+* Performance: Bei sehr großen oder komplexen Datensätzen kann QGIS ins Stocken geraten, Speicher- und Rechenbedarf steigen
+* Komplexere Analysen: Für detaillierte 3D-Auswertungen sind spezialisierte Programme oft besser geeignet
+* Atlas-Modus: Erfordert Einarbeitung und sorgfältige Pflege von Layout, Beschriftung und Legenden
+* Datenaktualität: Modelle können schnell veralten, wenn Geodaten nicht regelmäßig aktualisiert werden
