@@ -49,7 +49,7 @@ Die fertige A3 Karte umfasst zwei eigenständige Darstellungen der Bevölkerungs
 <a id="EP.02"></a>
 <br>
 # EP.02 | Gitterchoroplethenkarte (Kirschbäume Berlins)
-![image](https://github.com/To-David/B10-DTM/blob/07fc2314d888f1e9093d5af6cf99fb3469437fb2/files/25-04-10_David_%C3%9C2_Kirschbaeume-Berlins.png)
+![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_02.png)
 ## Ergebnis
 Die Hexagon Choroplethenkarte (Seitenlänge = 500 m) zeigt deutlich, dass Kirschbäume in Berlin nicht gleichmäßig verteilt sind. Vor allem im Osten und Südosten Köpenicks und Teilen des Westens Berlins sind kaum oder keine Kirschbäume aufzufinden. Für eine Analyse dieser Art eignen sich mit Abstand am besten geometrische Auswertemethoden (z.B. wie hier mittels Hexagone).
 ## Arbeitsschritte
@@ -77,7 +77,7 @@ Die Hexagon Choroplethenkarte (Seitenlänge = 500 m) zeigt deutlich, dass 
 <a id="EP.03"></a>
 <br>
 # EP.03 | Punktrasterkarten (AirBnB Berlin)
-![image](https://github.com/To-David/B10-DTM/blob/07fc2314d888f1e9093d5af6cf99fb3469437fb2/files/25-04-17_David_%C3%9C3_AirBnB-Berlin.png)
+![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_03.png)
 ## Ergebnis
 Die Punkt-Rasterkarte zeigt, dass sich AirBnB-Angebote in Berlin stark auf die innerstädtischen Bezirke konzentrieren. In den 2x2 km-Zellen von Mitte, Kreuzberg, Friedrichshain und Prenzlauer Berg treten sowohl die höchsten Angebotszahlen (bis > 350 Wohnungen/Häuser pro Raster) als auch die höchsten Durchschnittspreise (> 200 EUR/Nacht) auf. In den Außenbezirken nimmt die Zahl der Inserate deutlich ab, und die Preise liegen überwiegend unter 100 EUR/Nacht. Hotelzimmer häufen sich erwartungsgemäß im touristischen Zentrum innerhalb der S-Bahn-Ringbahn, während geteilte und private Zimmer häufiger in angrenzenden Wohngebieten erscheinen. Insgesamt erlaubt das mehrdimensionale gleichmäßige Raster, Hot-Spots schnell zu erkennen.
 ## Arbeitsschritte
@@ -104,7 +104,7 @@ Die Punkt-Rasterkarte zeigt, dass sich AirBnB-Angebote in Berlin stark auf die i
 <a id="EP.04"></a>
 <br>
 # EP.04 | Alpha-by-Value (Bundestagswahl 2021/25)
-![image](https://github.com/To-David/B10-DTM/blob/9d39f689f44bff8a86cf113991f89a6287f4e36b/files/25-04-24_David_%C3%9C4_Bundestagswahl_Zweitstimmen.png)
+![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_04.png)
 ## Ergebnis
 Die Auswertung liefert je Wahljahr eine thematische Karte, in der jeder Wahlkreis in der Parteifarbe der siegreichen Zweitstimme eingefärbt ist. Die Deckkraft der Fläche steigt proportional zum Stimmenanteil der Gewinnerpartei. So werden auf einen Blick sowohl der Wahlsieger als auch die Stärke seines Vorsprungs sichtbar, was den Vergleich zwischen 2021 und 2025 erleichtert. 
 Anmerkung: Beim Export wurden die Farben verzerrt. Besonders deutlich wird dies beim Rot der SPD.
@@ -137,7 +137,7 @@ Eine Weitere Karte wurde für den Zuwachs der Afd zwischen 2021 und 2025 erstell
 <a id="EP.05"></a>
 <br>
 # EP.05 | Tile-Mapping (Anteil der zulassungsbeschränkten Studiengänge je Bundesland)
-![image](https://github.com/To-David/B10-DTM/blob/ce815194d411cfa91d97f0d35069a25f3b9d8d23/files/25-05-15_David_%C3%9C5_NC.png)
+![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_05.png)
 ## Ergebnis
 Die erstellte Tile Map Karte macht auf einen Blick sichtbar, wie stark der Anteil zulassungsbeschränkter Studiengänge zwischen den Bundesländern variiert. Stadtstaaten und hochschulstarke westdeutsche Länder weisen die höchsten Quoten auf, während mehrere Flächenländer im Osten deutlich unter dem Bundesdurchschnitt liegen. 
 ## Arbeitsschritte
@@ -168,7 +168,7 @@ Die erstellte Tile Map Karte macht auf einen Blick sichtbar, wie stark der Ant
 <a id="EP.06"></a>
 <br>
 # EP.06 | Flowmaps (Syrische Flüchtlinge 2010-2024)
-![image](https://github.com/To-David/B10-DTM/blob/85770d4b2ec99e0dfab818f12af690dba4be69fa/files/25-06-09_David_%C3%9C6_Syria-refugees.png)
+![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_06.png)
 ## Ergebnis
 Zwischen 2010 und 2024 verließen rund 7 Mio. Flüchtlinge Syrien. Die Fluchtströme lassen sich in fünf Größenklassen gliedern (10.000 – 3,2 Mio). Der räumliche Schwerpunkt blieb klar auf Syriens Nachbarländern; europäische Ziele traten v. a. ab 2014 / 2015 hinzu und verstetigten sich bis 2024. Auf dieser Karte wurde der Übersicht halber ein Cutoff von 10.000 gewählt.
 <br>Anmerkung: Qualität leidet deutlich unter der Aufgabenstellung "PNG mit 1080x1080px"
@@ -197,7 +197,7 @@ Zwischen 2010 und 2024 verließen rund 7 Mio. Flüchtlinge Syrien. Die F
 <a id="EP.07"></a>
 <br>
 # EP.07 | Mesh-Daten (Orkan Kyrill)
-![image](https://github.com/To-David/B10-DTM/blob/ccf2f138f1fb91aedf499ebe413b8016ca8b6b05/files/25-06-12_David_%C3%9C7_orkan-kyrill.gif)
+![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_07.gif)
 ## Ergebnis
 Eine animierte GIF Sequenz zeigt, wie Orkan Kyrill im Januar 2007 mit seinen Windfeldern über Deutschland hinwegzieht. Jedes Frame enthält Datum und Uhrzeit, sowie die Windvektoren aus dem GRIB Mesh Datensatz. Das Endprodukt lässt sich in Präsentationen oder Online Plattformen einbinden und vermittelt auch Fachfremden den Verlauf des Sturms anschaulich.
 ## Arbeitsschritte
@@ -226,7 +226,7 @@ Eine animierte GIF Sequenz zeigt, wie Orkan Kyrill im Januar 2007 mit seinen
 <a id="EP.08"></a>
 <br>
 # EP.08 | Animationen in QGIS (Meteor Shower Quadrantids)
-![image](https://github.com/To-David/B10-DTM/blob/07fc2314d888f1e9093d5af6cf99fb3469437fb2/files/25-06-26_David_%C3%9C8_meteor-shower_quadrantids.png)
+![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_08.png)
 ## Ergebnis
 Eine statische Karte zeigt alle in der Nacht vom 3./4. Januar 2025 erfassten Quadrantid Meteore über Europa – jede Bahn als farblich abgestufte Linie vom Eintrittspunkt bis zum Verglühen.
 <br>Anmerkung: Qualität leidet deutlich unter der Aufgabenstellung "PNG mit 1080x1080px"
@@ -248,8 +248,8 @@ Eine statische Karte zeigt alle in der Nacht vom 3./4. Januar 2025 erfasst
 <br><br>
 <a id="EP.09"></a>
 <br>
-# EP.09 | 2.5D-Gebäudemodelle (Dresden)
-![image](https://github.com/To-David/B10-DTM/blob/09d09690cfac0a0d761528937ae207cf0be9d96b/files/25-06-26_David_%C3%9C9_2.5d-stadtmodelle_dresen_final.png)
+# EP.09 | 2.5D-Gebäudemodelle (Chemnitz)
+![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_09.png)
 ## Ergebnis
 Für einen kleinen Teil des Dresdner Stadtgebiet wurde eine Karte erzeugt, welche ein 2,5D Gebäudemodell darstellt. Dabei wurden die Höhen aus den öffentlich zugänglichen Shapefiles erzeugt.
 ## Arbeitsschritte
