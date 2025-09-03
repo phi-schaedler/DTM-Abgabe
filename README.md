@@ -103,50 +103,63 @@ Die Punkt-Rasterkarte zeigt, dass sich AirBnB-Angebote in Berlin stark auf die i
 <br><br>
 <a id="EP.04"></a>
 <br>
-# EP.04 | Alpha-by-Value (Bundestagswahl 2021/25)
+# EP.04 | Value-by-Alpha | Bundestagswahl 2021/25 |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_04.png)
 ## Ergebnis
-Die Auswertung liefert je Wahljahr eine thematische Karte, in der jeder Wahlkreis in der Parteifarbe der siegreichen Zweitstimme eingefärbt ist. Die Deckkraft der Fläche steigt proportional zum Stimmenanteil der Gewinnerpartei. So werden auf einen Blick sowohl der Wahlsieger als auch die Stärke seines Vorsprungs sichtbar, was den Vergleich zwischen 2021 und 2025 erleichtert. 
-Anmerkung: Beim Export wurden die Farben verzerrt. Besonders deutlich wird dies beim Rot der SPD.
-<br><br>
-Eine Weitere Karte wurde für den Zuwachs der Afd zwischen 2021 und 2025 erstellt: 
-[Zuwachs der AfD](https://github.com/To-David/B10-DTM/blob/07fc2314d888f1e9093d5af6cf99fb3469437fb2/files/25-04-24_David_%C3%9C4_Bundestagswahl_Zweitstimmen_AfD.png)
+Mit Value-by-Alpha wird die die Höhe eines Wertes durch Farbintensität ausgedrückt. In diesem Fall %-Stimmenanteil der Siegerpartei in der jeweiligen Bundestagswahl.
 ## Arbeitsschritte
-1. Datenbeschaffung – Wahlkreis Shapefile sowie finale Zweitstimmenergebnisse 2025 und 2021 von der Bundeswahlleiterin [herunterladen](https://www.bundeswahlleiterin.de/bundestagswahlen/2025/wahlkreiseinteilung/downloads.html). 
-2. Datenaufbereitung – In Excel alle irrelevanten Spalten/Zeilen löschen, nur Zweitstimmen der Parteien SPD, CDU/CSU, Grüne, Linke und AfD behalten, CSU Werte in Bayern zur CDU addieren, anschließend als CSV speichern. 
-3. Import – Shapefile und CSV in QGIS laden; Wahlkreisnummer als Integer definieren und korrektes Trennzeichen wählen.
-4. Verknüpfung – CSV mit Geometrien per Wahlkreisnummer („WKR_NR“) joinen.
-5. Attributberechnung – Neue Felder erzeugen
-* g_value (Stimmenzahl der Gewinnerpartei) array_max( array( "SPD" , "CDU" , "Gruenen" , "AFD" , "Linke"))
-* g_name (Name der Gewinnerpartei - ) with_variable( 'maxVal', array_max( array( "SPD" , "CDU" , "Gruenen" , "AFD" , "Linke")), CASE WHEN "SPD" = @maxVal THEN 'SPD' WHEN "CDU" = @maxVal THEN 'CDU' WHEN "Gruenen" = @maxVal THEN 'Gruenen' WHEN "AFD" = @maxVal THEN 'AFD' WHEN "Linke" = @maxVal THEN 'Linke' END)
-* g_proz_gueltig (Anteil an gültigen Stimmen) "G_value" / "gueltig" *100
-6. Symbolisierung – Regelbasierte Darstellung pro Partei (z.B. Regel: „g_name“ = ‚SPD‘ und Beschriftung: ‚SPD‘)
-* anschließend eine Regel für Alpha anlegen
-* Intensität des Kanals wird über den folgenden Ausdruck geregelt: set_color_part( 'black','alpha',scale_linear( "g_proz_gueltig", 19,47,255,0))
+1. Datenbeschaffung
+* Wahlkreis-Shapefile (generalisiert) [downloaden](https://www.bundeswahlleiterin.de/bundestagswahlen/2025/wahlkreiseinteilung/downloads.html)
+* endgültigen Wahlergebnisse [downloaden](https://bundeswahlleiterin.de/bundestagswahlen/2025/ergebnisse/opendata.html) (CSV/Kerg-Datei) von 2021 und 2025 
+2. Datenaufbereitung
+* In Excel irrelevante Spalten und Zeilen löschen, nur gültige Zweitstimmen der Parteien SPD, CDU/CSU, Grüne, Linke, AfD behalten.
+* CSU-Werte in Bayern der CDU zurechnen.
+* Als CSV exportieren, Wahlkreisnummer (_WKR_NR_) als Integer definieren.
+3. Datenverknüpfung
+* CSV und Wahlkreis-Geometrien in QGIS laden.
+* Mit Attribute nach Feldwert verknüpfen über „WKR_NR“ joinen.
+4. Attributberechnung
+Neue Felder erstellen:
+* _g_value__ → Stimmenzahl der siegreichen Partei
+`array_max( array( "SPD" , "CDU" , "Gruenen" , "AFD" , "Linke"))`
+* _g_name__ → Name der siegreichen Partei
+`with_variable( 'maxVal', array_max( array( "SPD" , "CDU" , "Gruenen" , "AFD" , "Linke")), CASE WHEN "SPD" = @maxVal THEN 'SPD' WHEN "CDU" = @maxVal THEN 'CDU' WHEN "Gruenen" = @maxVal THEN 'Gruenen' WHEN "AFD" = @maxVal THEN 'AFD' WHEN "Linke" = @maxVal THEN 'Linke' END)`
+* _g_proz_gueltig__ → Stimmenanteil in Prozent.
+5. __Symbolisierung__
+* Regelbasierte Darstellung: Jede Partei erhält ihre typische Parteifarbe.
+* Value-by-Alpha Mapping: Transparenz wird proportional zum Stimmenanteil geregelt:
+`set_color_part('white', 'alpha', scale_linear("g_proz_gueltig", min("g_proz_gueltig"), max("g_proz_gueltig"), 200, 0))`
+* Ergebnis: Farbton = Siegerpartei, Farbintensität = Stärke des Ergebnisses
+`set_color_part( 'black','alpha',scale_linear( "g_proz_gueltig", 19,47,255,0)`
+5. __Darstellung & Vergleich__
+* Karten für 2021 und 2025 nebeneinanderstellen, um Veränderungen sichtbar zu machen.
 ## Vorteile der Methode
-* Informationsdichte – Parteifarben zeigen den Sieger, die Transparenz dessen Stimmenanteil; zwei Kennzahlen in einer Kartenebene.
-* Intuitive Lesbarkeit – Bekanntes Farbschema der Parteien macht die Karte ohne umfangreiche Legende verständlich.
-* Homogene Datenquelle – Alle Ausgangsdaten stammen von derselben Behörde, wodurch Kompatibilitätsprobleme minimiert werden.
+* Zwei Variablen gleichzeitig: Partei (Farbton) + Stimmenstärke (Deckkraft) in einer Ebene.
+* Deutlich erkennbar, wo Parteien mit großem oder kleinem Vorsprung gewonnen haben.
+* Bekannte Parteifarben erleichtern das Verständnis ohne aufwendige Legende.
+* Karten von 2021 und 2025 nebeneinander zeigen politische Verschiebungen klar.
+* Alle Daten stammen von der Bundeswahlleiterin → konsistent und kompatibel.
 ## Nachteile der Methode
-* Farbüberschneidungen – Ähnliche Farbtöne (z. B. helles Rot vs. Rosa) können die Siegerpartei verschleiern und reduzieren die Anzahl unterscheidbarer Kategorien. Dies wird nochmals Anspruchsvoller durch die Nutzung des Alpha-Wertes.
-* Manueller Aufwand – Das händische Säubern und Umstrukturieren der Wahldaten ist zeitintensiv und fehleranfällig.
-* Lesbarkeit bei vielen Parteien – Je mehr Kategorien eingefärbt werden müssen, desto eher leidet die Klarheit der Darstellung.
-* Alpha Skalierung – Bei knappen Ergebnissen kann der Transparenzeffekt zu schwach sein, bei Erdrutschsiegen zu dominant. 
+* Ähnliche Farbtöne (z. B. Rot der SPD vs. Rosa der Linken) sind schwer unterscheidbar → begrenzte Anzahl darstellbarer Parteien.
+* Aufwendige Datenaufbereitung: Wahldaten müssen manuell bereinigt, umstrukturiert und neu formatiert werden (CSU/CDU-Zusammenführung).
+* Fehleranfälligkeit: Kleine Unachtsamkeiten in der Excel-Bearbeitung können falsche Ergebnisse erzeugen
+* Alpha-Skalierung: Bei knappen Ergebnissen zu schwach sichtbar, bei sehr hohen Anteilen zu dominant.
+* Kleine Wahlkreise sind schlechter zu erkennen und vermitteln ein verzehrtes Bild (Berlin hat viele Einwohner aber nur wenig Fläche)
 
 <br><br>
 <a id="EP.05"></a>
 <br>
-# EP.05 | Tile-Mapping (Anteil der zulassungsbeschränkten Studiengänge je Bundesland)
+# EP.05 | Tile-Mapping | Vekehrsunfälle mit Personenschaden |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_05.png)
 ## Ergebnis
 Die Tile Map vergleicht die Anzahl der Verkehrsunfälle mit Personenschaden zwischen den Bundesländern der BRD. In Norddeutschland sollte man besonders vorsichtig fahren. Erstaunlich ist die niedrige Unfallquote von Hessen als Verkehrsknotenpunkt.
 ## Arbeitsschritte
 1. __Grundlage erstellen__
-* Mit Gitter erzeugen ein rechteckiges Raster über der ungefähren Ausdehnung Deutschlands anlegen (Seitenlänge beliebig, wird später angepasst).
+* _Mit Gitter erzeugen_ ein rechteckiges Raster über der ungefähren Ausdehnung Deutschlands anlegen (Seitenlänge beliebig, wird später angepasst).
 * 16 Kacheln wählen, die die Lage der Bundesländer grob wiedergeben; Auswahl als neuen Layer speichern.
 * Verkehrsdaten [downloaden](https://www.statistikportal.de/de/transport-und-verkehr/strassenverkehrsunfaelle)
 2. __Geometrie anpassen__
-* Alle ausgewählten Kacheln mit den Erweiterten Digitalisierungswerkzeugen verschieben und skalieren, bis Form und Größe ungefähr Deutschland entsprechen (4×4-Raster).
+* Alle ausgewählten Kacheln mit den _Erweiterten Digitalisierungswerkzeugen_ verschieben und skalieren, bis Form und Größe ungefähr Deutschland entsprechen (4×4-Raster).
 * Bei Bedarf feintunen (Stadtstaaten liegen innerhalb anderer Länder → pragmatische Kompromisse).
 3. __Attribute vorbereiten__
 * Im Kachel-Layer eine Spalte für Länderkürzel (z. B. “BE”, “BW”…).
@@ -172,7 +185,7 @@ Die Tile Map vergleicht die Anzahl der Verkehrsunfälle mit Personenschaden zwis
 <br><br>
 <a id="EP.06"></a>
 <br>
-# EP.06 | Flowmaps (Flucht aus dem Südsudan)
+# EP.06 | Flowmaps | Flucht aus dem Südsudan |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_06.png)
 ## Ergebnis
 Der Südsudan ist von inneren Unruhen erschüttert. Die Lebensgrundlage von vielen Menschen ist sehr unsicher. Deshalb sind mehere Millionen Menschen (insbesondere in die Nachbarländer) geflohen.
@@ -253,7 +266,7 @@ Ein GIF zeigt wie Orkan Daria Ende Januar 1990 über Westeuropa und Deutschl
 <br><br>
 <a id="EP.08"></a>
 <br>
-# EP.08 | Animationen in QGIS 
+# EP.08 | Animationen in QGIS | Leoniden Sternschnuppen |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_08.png)
 ## Ergebnis
 Eine statische Karte (PNG) zeigt alle in der Nacht vom 17./18. November 2024 erfassten Leoniniden Meteore über Deutschand und Umgebung – jede Bahn als farblich abgestufte Linie vom Eintrittspunkt bis zum Verglühen. Zur Visualisierung von Meteorschauern konnten offene Datenquellen genutzt werden. 
@@ -298,7 +311,7 @@ Eine statische Karte (PNG) zeigt alle in der Nacht vom 17./18. November 20
 <br><br>
 <a id="EP.09"></a>
 <br>
-# EP.09 | 2.5D-Gebäudemodelle (Chemnitz)
+# EP.09 | 2.5D-Gebäudemodelle | Chemnitz Innenstadt |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_09.png)
 ## Ergebnis
 Für einen kleinen Teil des Chemnitzer Stadtgebiets wurde eine Karte erzeugt, welche ein 2,5D Gebäudemodell darstellt. Dabei wurden die Höhen aus den öffentlich zugänglichen Shapefiles LOD2 (Level of Detail 2) erzeugt.
