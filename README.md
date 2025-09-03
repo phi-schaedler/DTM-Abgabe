@@ -9,7 +9,7 @@ Kontakt: phsc3459@bht-berlin.de & philipp.schaedler@gmail.com
 [EP.01 Dasymetrische Choroplethenkarte](#EP.01)<br>
 [EP.02 Gitterchoroplethenkarte](#EP.02)<br>
 [EP.03 Punktrasterkarte](#EP.03)<br>
-[EP.04 Value-by-alpha Mapping](#EP.04)<br>
+[EP.04 Value-by-Alpha](#EP.04)<br>
 [EP.05 Tilemaps](#EP.05)<br>
 [EP.06 Flowmaps](#EP.06)<br>
 [EP.07 Mesh-Daten](#EP.07)<br>
@@ -19,31 +19,41 @@ Kontakt: phsc3459@bht-berlin.de & philipp.schaedler@gmail.com
 <br><br>
 <a id="EP.01"></a>
 <br>
-# EP.01 | Dasymetrische Choroplethenkarte (Bevölkerungsdichte Berlins)
+# EP.01 | Dasymetrische Choroplethenkarte | Bevölkerungsdichte Berlins |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/b3a8addf33c9140a84596192b511bf04713ea80a/Files/Schaedler_Philipp_Arbeitsaufgabe_01.png)
 ## Ergebnis
-Die fertige A3 Karte umfasst zwei eigenständige Darstellungen der Bevölkerungsdichte in Berlins Planungsräumen:
-* Einfache Choroplethenkarte – Hier wird die Bevölkerungszahl jedes Planungsraums auf dessen Gesamtfläche bezogen. Die Dichte wurde in QGIS aus dem Ausdruck EW / ($area / 10 000) berechnet und anschließend mit dem Klassifikationsmodus Natürliche Unterbrechungen (Jenks) in fünf Farbstufen visualisiert.
-* Dasymetrische Choroplethenkarte – Zunächst wurde das Corine Land Cover Shapefile gefiltert, sodass nur die urbanen Klassen 111 und 112 (Urban Fabric) übrigblieben. Nach dem Auflösen dieser Polygone zu einem einzigen bewohnten Flächenlayer wurde er mit den Planungsräumen verschnitten. Alle nicht bebauten Teilflächen erscheinen grau und gehen nicht in die Flächen- oder Dichteberechnung ein. Dadurch liegen die Dichtewerte deutlich höher als in der einfachen Karte.
+Die Karte im A3 Format umfasst zwei ähnliche Darstellungen der Bevölkerungsdichte in Berlins nach Planungsräumen (LOR):
+* Einfache Choroplethenkarte – Bevölkerungszahl gemessen auf die Gesamtfläche 
+* Dasymetrische Choroplethenkarte – zugeschnittene Bevölkerungszahl auf tatsächlich bewohnte Gebiete
 ## Arbeitsschritte
-1.	Datenbeschaffung – Das Shapefile der Planungsräume Berlins ([LOR 2021](https://www.berlin.de/sen/sbw/stadtdaten/stadtwissen/sozialraumorientierte-planungsgrundlagen/lebensweltlich-orientierte-raeume/)) sowie die Einwohnerzahlen ([CSV, Stand 1/2023](https://www.berlin.de/sen/sbw/stadtdaten/stadtwissen/monitoring-soziale-stadtentwicklung/bericht-2021/tabellen/)) wurden von der Berliner Senatsverwaltung heruntergeladen.
-2.	Aufbereitung der CSV – Überflüssige Kopfzeilen und Spalten wurden in Excel entfernt; 1000er Trennpunkte deaktiviert; beim Import nach QGIS erhielten sowohl PLR Nummer als auch Einwohnerzahl den Datentyp Ganzzahl.
-3.	Join – Mit „Attribute nach Feldwert verbinden“ wurden die Einwohnerzahlen an die PLR Geometrien angefügt. Damit war der Layer für die einfache Choroplethenkarte vollständig.
-4.	Klassifizierung & Layout – In den Layereigenschaften wurde EW / ($area / 10 000) als Ausdruck hinterlegt, Jenks Klassen gewählt und Farben angepasst; Anzahl, Grenzwerte und Legende wurden manuell verfeinert.
-5.	Dasymetrische Schritte:
-* Filtern der Corine Daten auf Code_18 = 111 OR 112 mittels „Nach Ausdruck extrahieren“.
-* Auflösen zu einer einzigen Urban Fabric Fläche.
-* Verschneidung dieser Fläche mit dem mit Einwohnerzahlen angereicherten PLR Layer, sodass jeder bebaute Polygonteil seine Einwohnerzahl erbte.
-* Neuberechnung von Fläche und Dichte in einer neuen Spalte.
-* Symbolisierung: unbewohnte Teile grau, bewohnte Teile als abgestufte Choroplethenkarte; Stil des einfachen Layers wurde kopiert und neu klassifiziert.
+1. __Datenbasis__
+* Planungsräume (LOR 2021) als Shapefile von der Senatsverwaltung [downloaden](https://www.berlin.de/sen/sbw/stadtdaten/stadtwissen/sozialraumorientierte-planungsgrundlagen/lebensweltlich-orientierte-raeume/).
+* Einwohnerzahlen [downloaden](https://www.berlin.de/sen/sbw/stadtdaten/stadtwissen/monitoring-soziale-stadtentwicklung/bericht-2021/tabellen/=)
+* Einwohnerzahlen (CSV, Stand Januar 2023) bereinigen (Kopfzeilen löschen, nur Einwohner-Spalten behalten, 1000er-Trennpunkte entfernen) und als Ganzzahlen importieren.
+2. __Join__
+* PLR-ID als Ganzzahlspalte im Shapefile anlegen.
+* CSV und Geometrien per Attribute nach Feldwert verknüpfen.
+3. __Einfache Choroplethenkarte__
+Bevölkerungsdichte berechnen
+`"EW" / ($area / 10000)` → Einwohner je Hektar
+Symbolisierung: abgestuft, Klassifizierung nach Jenks, Farbverlauf.
+4. __Dasymetrische Choroplethenkarte__
+Corine Land Cover Daten (CLC) [downloaden](https://land.copernicus.eu/en/technical-library) und auf urbane Codes 111 und 112 filtern.
+* Mit _Auflösen_ zusammenführen → Urban Fabric.
+* _Verschneidung_ mit LOR-Einwohnern.
+* Dichte nur bezogen auf urbane Fläche berechnen.
+* Extremwerte prüfen und ggf. manuell löschen.
+* Symbolisierung analog zur einfachen Karte; Zusatzfeld unbewohnte Fläche
 ## Vorteile der Methode
-* Realistischere Kennzahlen – Dichte wird nur auf bebaute Flächen bezogen, unbewohnte Areale verzerren das Ergebnis nicht.
-* Klarere räumliche Kontraste – Hot‑Spots hoher oder niedriger Dichte treten deutlicher hervor, was die Interpretation erleichtert.
-* Bessere Planungsgrundlage – Präzisere Werte unterstützen Entscheidungen zu Infrastruktur, Freiraum‑ und Wohnraumbedarf.
+* Nur bewohnte Flächen berücksichtigt, unbewohnte (Wälder, Parks, Wasser) ausgeschlossen.
+* Hot Spots innerstädtischer Dichte treten klar hervor.
+* Vergleichbarkeit: Kombination von administrativen Einheiten mit realer Flächennutzung.
+* Bessere Grundlage für Infrastruktur- und Wohnraumbedarfsanalysen.
 ## Nachteile der Methode
-* Datenabhängigkeit – Das Ergebnis ist so zuverlässig wie die Aktualität und Auflösung der Corine Land Cover Daten; Diskrepanzen an den Schnittstellen der Planungsräume können zu Ausreißern führen, die manuell bereinigt werden sollten (hier am Beispiel des Maximalwertes zu sehen, welcher bewusst beibehalten wurde).
-* Annahme „keine Bewohner außerhalb Urban Fabric“ – In Großstädten kaum problematisch, in suburbanen oder ländlichen Kontexten aber eine zu grobe Vereinfachung.
-* Höherer Aufwand – Filter- , Auflöse- , Verschneidungs-  und Join-Schritte kosten Zeit und Rechenleistung; jede Aktualisierung der Einwohnerzahlen erfordert ein erneutes Durchlaufen des Workflows.
+* Datenaufwendig: Mehrere Quellen (LOR, Einwohnerdaten, CLC) und viele Verarbeitungsschritte.
+* Datenqualität entscheidend: Genauigkeit hängt von CLC-Daten ab; Schnittfehler oder Ausreißer möglich.
+* Vereinfachende Annahme: „Keine Bewohner außerhalb urbaner Flächen“ – in ländlichen Kontexten problematisch.
+* Komplexität: Höherer Zeit- und Rechenaufwand, weniger intuitiv für Laien als einfache Choroplethenkarten.
 
 <br><br>
 <a id="EP.02"></a>
@@ -61,8 +71,7 @@ Die Hexagon Choroplethenkarte (Seitenlänge = 500 m) zeigt die Verteilung 
 `art_dtsch ILIKE '%kirsche%'`
 * Nur ausgewählte Bäume als eigener Punktlayer exportieren.
 3. __Hexagon-Gitter erzeugen__
-* _Vektor_ → _Recherchewerkzeuge_ → __Gitter erzeugen_:
-* Typ = Hexagon (Polygone), Seitenlänge __500 m__ (Achtung: Meter als Einheit!).
+* _Vektor_ → _Recherchewerkzeuge_ → __Gitter erzeugen_: Typ = Hexagon (Polygone), Seitenlänge __500 m__ (Achtung: Meter als Einheit!).
 * Gitter auf Berlin-Ausdehnung erstellen und (empfohlen) mit Stadtgrenze zuschneiden, damit Randhexagone nicht überstehen.
 4. __Räumliche Aggregation__
 * _Attribute nach Position verknüpfen (Zusammenfassung)_: Ziel = Hexagon-Grid, Join = Kirschbaum-Punkte, Anzahl der Bäume pro Zelle berechnen.
@@ -247,7 +256,7 @@ Der Südsudan ist von inneren Unruhen erschüttert. Die Lebensgrundlage von viel
 <br><br>
 <a id="EP.07"></a>
 <br>
-# EP.07 | Mesh-Daten (Orkan Daria)
+# EP.07 | Mesh-Daten | Orkan Daria |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_07.gif)
 ## Ergebnis
 Ein GIF zeigt wie Orkan Daria Ende Januar 1990 über Westeuropa und Deutschland hinwegzieht. Es veranschaulicht die Bewegung des Windes über eine zeitliche Abfolge im Stundentakt. Im Frame sind Datum und Uhrzeit und Windvektoren aus einem GRIB Mesh Datensatz enthalten. 
@@ -327,7 +336,6 @@ Eine statische Karte (PNG) zeigt alle in der Nacht vom 17./18. November 20
 * __Qualität__: GIFs haben begrenzte Farben und Bildrate; Hintergrundkarten können bei großem Maßstab unscharf wirken
 * __Bedienung & Aufwand__: Viele manuelle Schritte (Datenformatierung, Zeitsteuerung, Export). Layoutpflege und Animationseinstellungen erfordern Fachkenntnisse
 * __Fehlende Interaktivität__: Animationen können nicht pausiert oder zurückgespult werden; statische Karten zeigen keine Dynamik
-
 
 <br><br>
 <a id="EP.09"></a>
