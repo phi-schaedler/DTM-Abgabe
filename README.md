@@ -199,7 +199,7 @@ Zwischen 2010 und 2024 verließen rund 7 Mio. Flüchtlinge Syrien. Die F
 # EP.07 | Mesh-Daten (Orkan Daria)
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_07.gif)
 ## Ergebnis
-Ein GIF zeigt zeigt wie Orkan Daria Ende Januar 1990 mit über Westeuropa und Deutschland hinwegzieht. Es veranschaulicht die Bewegung des Windes über eine zeitliche Abfolge im Stundentakt. Im Frame sind Datum und Uhrzeit und Windvektoren aus einem GRIB Mesh Datensatz enthalten. 
+Ein GIF zeigt wie Orkan Daria Ende Januar 1990 über Westeuropa und Deutschland hinwegzieht. Es veranschaulicht die Bewegung des Windes über eine zeitliche Abfolge im Stundentakt. Im Frame sind Datum und Uhrzeit und Windvektoren aus einem GRIB Mesh Datensatz enthalten. 
 ## Arbeitsschritte
 1. __Datenbeschaffung__
    * Verwaltungsgrenzen Deutschlands [herunterladen](https://www.naturalearthdata.com/downloads/)
