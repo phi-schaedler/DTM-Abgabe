@@ -167,31 +167,43 @@ Die erstellte Tile Map Karte macht auf einen Blick sichtbar, wie stark der Ant
 <br><br>
 <a id="EP.06"></a>
 <br>
-# EP.06 | Flowmaps (Syrische Flüchtlinge 2010-2024)
+# EP.06 | Flowmaps (Flucht aus dem Südsudan)
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_06.png)
 ## Ergebnis
-Zwischen 2010 und 2024 verließen rund 7 Mio. Flüchtlinge Syrien. Die Fluchtströme lassen sich in fünf Größenklassen gliedern (10.000 – 3,2 Mio). Der räumliche Schwerpunkt blieb klar auf Syriens Nachbarländern; europäische Ziele traten v. a. ab 2014 / 2015 hinzu und verstetigten sich bis 2024. Auf dieser Karte wurde der Übersicht halber ein Cutoff von 10.000 gewählt.
-<br>Anmerkung: Qualität leidet deutlich unter der Aufgabenstellung "PNG mit 1080x1080px"
+Der Südsudan ist von inneren Unruhen erschüttert. Die Lebensgrundlage von vielen Menschen ist sehr unsicher. Deshalb sind mehere Millionen Menschen (insbesondere in die Nachbarländer) geflohen.
 ## Arbeitsschritte
-1. Datenbeschaffung – [UNHCR Flüchtlingszahlen](https://www.unhcr.org/refugee-statistics/download) und weltweite [Landesgeometrien](https://www.naturalearthdata.com/downloads/) herunterladen
-2. Tabellen Aufbereitung – Pivot Tabelle (Spalten = Jahr, Zeilen = Asylstaat ISO, Werte = Summe Flüchtlinge) erstellen, bereinigte Tabelle als CSV exportieren
-3. Layer Import – Länderflächen sowie CSV in QGIS laden; CSV ohne Geometrie als Text Layer einbinden
-4. Zentroid Berechnung – Mittelpunkte aller Staaten erzeugen und gegebenenfalls bei Überseegebieten korrigieren
-5. Projektion – Eigene orthographische Projektion (+proj=ortho +lat_0=50.3 +lon_0=30.3 +x_0=0 +y_0=0 +a=6371000 +b=6371000 +units=m +no_defs) anlegen, um eine Globusansicht abzubilden
-6. Geometrie Join – CSV über ISO Code mit Zentroid Layer verknüpfen
-7. Linien Generierung – Im Feldrechner feste Ursprungkoordinaten (Syrien) und Zielkoordinaten ($x, $y) anlegen; „XY → Linie“ Werkzeug ausführen
-8. Symbolisierung
-* Linienbreite nach Flüchtlingszahl staffeln (5 Klassen)
-* Syrien als roten, großzügig skalierten Punkt kennzeichnen
-* Ozeanflächen dunkelblau / shapeburst füllen, um Globuseffekt zu erzielen
+1. __Datenbeschaffung & Aufbereitung__
+  * UNHCR Flüchtlingszahlen [downladen](https://www.unhcr.org/refugee-statistics/download)
+  * weltweite Landesgeometrien [downloaden](https://www.naturalearthdata.com/downloads/)
+  * In Excel Pivot-Tabellen anlegen (Spalten = Jahr, Zeilen = Zielland-ISO, Werte = Summe) und als CSV exportieren
+  * Tabelle in QGIS als Textlayer importieren (ohne Geometrie)
+2. __Zentroid-Berechnung & Korrektur__
+  * Für alle Länder Mittelpunkte (Zentroide) berechnen.
+  * Überseegebiete ggf. manuell korrigieren, da Mittelpunkte im Wasser liegen können.
+3. __Join & Liniengenerierung__
+  * CSV-Daten über ISO-Code mit Zentroid-Layer verknüpfen.
+  * Ursprungspunkt festlegen (z. B. Syrien, Deutschland oder Berlin).
+  * Im Feldrechner X-/Y-Koordinaten für Ursprung und Ziel eintragen.
+  * Mit dem Werkzeug XY → Linie Verbindungen erzeugen.
+4. Projektion & Symbolisierung
+  * Orthographische Projektion anlegen mit Fokus auf Juba (`+proj=ortho +lat_0=4.85 +lon_0=31.57 +x_0=0 +y_0=0 +a=6371000 +b=6371000 +units=m +no_defs`) für Globuseffekt.
+  * Hintergrund dunkelblau mit Shapeburst-Füllung für Ozeandarstellung.
+  * Linienbreite proportional zur Anzahl (Flüchtlinge oder Austauschplätze).
+  * Ausgangsland/-stadt durch auffälligen Punkt hervorheben.
+  * Zielpunkte zusätzlich skalieren, um Mengenunterschiede zu verdeutlichen.
 ## Vorteile der Methode
-* Räumliche Kontextualisierung – Herkunft und Ziel stehen in direktem Bezug, Richtung & Distanz sind sofort erkennbar
-* Vergleichbarkeit – Graduierte Linienbreiten ermöglichen einen schnellen quantitativen Vergleich zwischen Aufnahmestaaten
-* Visuelle Attraktivität – Orthographische Projektion liefert eine eingängige, fast globusähnliche Darstellung, die auch Laien anspricht
+* Anschaulich & intuitiv: Richtung und Distanz zwischen Herkunft und Ziel werden klar erkennbar.
+* Graduierte Linienbreiten und Symbolgrößen machen Mengenunterschiede sofort sichtbar.
+* Orthographische Projektion wirkt globusartig und ansprechend.
+* Mustererkennung: Hotspots und Bewegungsmuster lassen sich schnell identifizieren.
+* Einsetzbar für verschiedene Themen (Flucht, Migration, Austauschprogramme).
 ## Nachteile der Methode
-* Linienüberlagerung – Viele ähnliche Pfade können das Bild überladen und Details verdecken, Libanon mit dem zweitgrößten Anteil wird komplett verdeckt
-* Zentroid Ungenauigkeit – Staaten mit Überseegebieten erhalten falsche Mittelpunkte und müssen händisch korrigiert werden
-* Begrenzter Ausschnitt – Die orthographische Projektion zeigt nur die halbe Erde; Randgeometrien werden teilweise nicht korrekt dargestellt (z.B. gerade Linien bei Brasilien, Kanada) 
+* Linienüberlagerung: Bei vielen ähnlichen Verbindungen wird die Karte unübersichtlich, Details können verdeckt werden.
+* Ungenauigkeit durch Zentroide: Länder mit Überseegebieten führen oft zu falschen Mittelpunkten.
+* Begrenzter Kartenausschnitt: Orthographische Projektion zeigt nur eine Halbkugel, andere Regionen werden abgeschnitten.
+* Interpretationsschwierigkeiten: Für Personen mit wenig Länderkunde oder ohne Legende schwerer verständlich.
+* Visuell statt metrisch: Karten sind eher für die Darstellung gedacht, nicht für präzise Analysen.
+* Erstellungsaufwand: Daten filtern, Zentroide korrigieren und Projektionen definieren erfordert Zeit und Fachkenntnis.
 
 <br><br>
 <a id="EP.07"></a>
