@@ -199,12 +199,13 @@ Zwischen 2010 und 2024 verließen rund 7 Mio. Flüchtlinge Syrien. Die F
 # EP.07 | Mesh-Daten (Orkan Daria)
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_07.gif)
 ## Ergebnis
-Eine animierte GIF Sequenz zeigt, wie Orkan Daria Ende Januar 1990 mit seinen Windfeldern über Westeuropa hinwegzieht. Jedes Frame enthält Datum und Uhrzeit, sowie die Windvektoren aus dem GRIB Mesh Datensatz. Das Endprodukt lässt sich in Präsentationen oder Online Plattformen einbinden und vermittelt auch Fachfremden den Verlauf des Sturms anschaulich.
+Ein GIF zeigt zeigt wie Orkan Daria Ende Januar 1990 mit über Westeuropa und Deutschland hinwegzieht. Es veranschaulicht die Bewegung des Windes über eine zeitliche Abfolge im Stundentakt. Im Frame sind Datum und Uhrzeit und Windvektoren aus einem GRIB Mesh Datensatz enthalten. 
 ## Arbeitsschritte
-1. Datenbeschaffung – Verwaltungsgrenzen Deutschlands und den GRIB Datensatz mit Windgeschwindigkeiten [herunterladen](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download) (10m u-component of wind, 10m v-component of wind)
-2. Symbolisierung – Mesh Layer auf Vektor Darstellung umstellen, passendes Farbschema wählen
-3. Zeitsteuerung – Layereigenschaft „Zeitlich“ einstellen
-4. Zeitstempel – neuen Punkt Layer anlegen
+1. __Datenbeschaffung__
+   * Verwaltungsgrenzen Deutschlands und den GRIB Datensatz mit Windgeschwindigkeiten [herunterladen](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download) (10m u-component of wind, 10m v-component of wind)
+3. Symbolisierung – Mesh Layer auf Vektor Darstellung umstellen, passendes Farbschema wählen
+4. Zeitsteuerung – Layereigenschaft „Zeitlich“ einstellen
+5. Zeitstempel – neuen Punkt Layer anlegen
 * Symbol auf transparent setzen
 * Beschriftung: format_date(@map_start_time, 'd. MMMM yyyy') || '\n'  || format_date(@map_start_time, 'HH:mm')
 * Zeitlich: „Nur Layer neuzeichnen“
