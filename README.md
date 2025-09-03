@@ -19,7 +19,7 @@ Kontakt: phsc3459@bht-berlin.de & philipp.schaedler@gmail.com
 <br><br>
 <a id="EP.01"></a>
 <br>
-# EP.01 | Dasymetrische Choroplethenkarte | Bevölkerungsdichte Berlins |
+# EP.01 | Dasymetrische Choroplethenkarte | Bevölkerungsdichte Berlin |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/b3a8addf33c9140a84596192b511bf04713ea80a/Files/Schaedler_Philipp_Arbeitsaufgabe_01.png)
 ## Ergebnis
 Die Karte im A3 Format umfasst zwei ähnliche Darstellungen der Bevölkerungsdichte in Berlins nach Planungsräumen (LOR):
