@@ -137,7 +137,7 @@ Die Punktrasterkarte ermöglicht eine angepasste Rasteransicht, in diesem Fall m
 # EP.04 | Value-by-Alpha | Bundestagswahl 2021/25 |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_04.png)
 ## Ergebnis
-Mit Value-by-Alpha wird die die Höhe eines Wertes durch Farbintensität ausgedrückt. In diesem Fall %-Stimmenanteil der Siegerpartei in der jeweiligen Bundestagswahl.
+Mit Value-by-Alpha wird die Höhe eines Wertes durch Farbintensität ausgedrückt. In diesem Fall %-Stimmenanteil der Siegerpartei in der jeweiligen Bundestagswahl.
 ## Arbeitsschritte
 1. __Datenbeschaffung__
 * Wahlkreis-Shapefile (generalisiert) [downloaden](https://www.bundeswahlleiterin.de/bundestagswahlen/2025/wahlkreiseinteilung/downloads.html)
