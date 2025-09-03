@@ -48,30 +48,40 @@ Die fertige A3 Karte umfasst zwei eigenständige Darstellungen der Bevölkerungs
 <br><br>
 <a id="EP.02"></a>
 <br>
-# EP.02 | Gitterchoroplethenkarte (Kirschbäume Berlins)
+# EP.02 | Gitterchoroplethenkarte | Kirschbäume Berlins |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_02.png)
 ## Ergebnis
-Die Hexagon Choroplethenkarte (Seitenlänge = 500 m) zeigt deutlich, dass Kirschbäume in Berlin nicht gleichmäßig verteilt sind. Vor allem im Osten und Südosten Köpenicks und Teilen des Westens Berlins sind kaum oder keine Kirschbäume aufzufinden. Für eine Analyse dieser Art eignen sich mit Abstand am besten geometrische Auswertemethoden (z.B. wie hier mittels Hexagone).
+Die Hexagon Choroplethenkarte (Seitenlänge = 500 m) zeigt die Verteilung von Kirschbäumen in Berlin. Einige Hotspots fallen auf. Am ehemaligen Grenzstreifen zwischen Ost- und Westberlin sind viele Kirschbäume gepflanzt. Die Verteilung ist ungleichmäßig.
 ## Arbeitsschritte
-1.	Datenbeschaffung – Bezirksgrenzen und Baumbestand als WFS-Layer aus dem [Geoportal Berlin](https://fbinter.stadt-berlin.de/fb/index.jsp) einfügen
-2.	Erstellen des Hexagongitters – Menü Vektor → Recherchewerkzeuge → Gitter erzeugen
-* Typ = „Hexagon (Polygone)“, Ausdehnung = Bezirksgrenzen Layer
-* Seitenlänge 500 m → kurzer Diagonalabstand ≈ 866,025 m als horizontale & vertikale Schrittweite eingetragen. 
-3.	Aggregation (räumlicher Join) – Verarbeitung → Werkzeugkiste → „Attribute nach Position verknüpfen (Zusammenfassung)“
-* Ziel Layer = Hexagon Grid, Join Layer = Kirschbaumpunkte
-* Operation = Summe der Baumanzahl pro Zelle
-4.	Symbolisierung
-* Layer Eigenschaften → Symbolisierung → „Abgestuft“
-* Spalte = Baumanzahl, Klassifizierung nach Jenks, 6 Farben von Grau (0 Bäume) bis Dunkelpink (462 Bäume)
+1. __Daten beschaffen & laden__
+* Bezirksgrenzen und Baumbestand (Straßen- und Anlagenbäume)[downloaden](https://fbinter.stadt-berlin.de/fb/index.jsp)
+* Stadtgrenze als Clip-Geometrie bereitstellen.
+2. __Baumarten filtern__
+* In beiden Baum-Layern Kirschbäume selektieren, z. B. per Ausdruck
+`art_dtsch ILIKE '%kirsche%'`
+* Nur ausgewählte Bäume als eigener Punktlayer exportieren.
+3. __Hexagon-Gitter erzeugen__
+* _Vektor_ → _Recherchewerkzeuge_ → __Gitter erzeugen_:
+* Typ = Hexagon (Polygone), Seitenlänge __500 m__ (Achtung: Meter als Einheit!).
+* Gitter auf Berlin-Ausdehnung erstellen und (empfohlen) mit Stadtgrenze zuschneiden, damit Randhexagone nicht überstehen.
+4. __Räumliche Aggregation__
+* _Attribute nach Position verknüpfen (Zusammenfassung)_: Ziel = Hexagon-Grid, Join = Kirschbaum-Punkte, Anzahl der Bäume pro Zelle berechnen.
+5. __Symbolisierung__
+* Abgestuft nach Baumanzahl; sinnvolle Klassenbildung (z. B. Jenks) und klare, eindimensionale Farbrampe (hell → dunkel).
+* Optional: separate Karten/Layer für Baumhöhen oder Unterarten, aber nicht in dieser Karte mischen (Lesbarkeit).
+6. __Layout & Kontext__
+* Titel, Datenquelle, Legende; "dezenter" Hintergrund.
+* Orientierungshilfen (Bahnhöfe) als Referenz-Overlays.
 ## Vorteile der Methode
-* Unabhängig von Verwaltungsgrenzen – räumliche Muster werden nicht durch Bezirks- oder Ortsteilgrenzen verzerrt
-* Gleich große Flächeneinheiten erleichtern statistische Vergleiche (Dichte ↔ Anzahl)
-* Lücken sichtbar – graue Zellen heben baumfreie Räume sofort hervor
-* Flexibel skalierbar – durch Ändern der Zellgröße lässt sich der Detailgrad anpassen
+* Gleich große Hexagone eliminieren Verwaltungsgrenzen-Bias; Muster und Cluster werden schnell sichtbar.
+* Regelmäßiges Gitter wirkt aufgeräumt und ästhetisch; Lücken/Leerräume werden transparent.
+* Zellgröße lässt sich an Fragestellung anpassen (Detailgrad ↔ Stabilität).
+* Vollständig mit QGIS-Bordmitteln (WFS, Gitter, räumliche Zusammenfassung) umsetzbar.
 ## Nachteile der Methode
-* Wahl der Zellgröße beeinflusst das Ergebnis – zu grob ⇒ Details gehen verloren, zu fein ⇒ Karte wird unruhig
-* Künstliche Zellgrenzen können reale räumliche Strukturen zerschneiden oder Hot Spots „aufspalten“
-* Weniger vertraut für Laien als bekannte Bezirkskarten; erfordert Erläuterung im Bericht
+* Orientierung: Ohne bekannte Grenzen/POIs fällt Laien die Verortung schwer; Kontextlayer helfen.
+* Rand- und Clipping-Effekte: Ungeschnittene Randhexagone können außerhalb Berlins wirken; unbedingt auf Stadtgrenze clippen.
+* Modifizierbarkeit der Ergebnisse: Wahl von Zellgröße und Klassifizierung (z. B. Jenks) beeinflusst Musterwahrnehmung.
+* Generalisation: Innerhalb einer 500-m-Zelle werden lokale Unterschiede gemittelt; Detailanalysen sind begrenzt.
 
 <br><br>
 <a id="EP.03"></a>
@@ -95,7 +105,7 @@ Die Punktrasterkarte ermöglicht eine angepasste Rasteransicht, in diesem Fall m
 4. __Darstellungsvarianten__
 * Mehrdimensionale Punktrasterkarte (hier dargestellt):
 * Punktfarbe (großer Ring) = Durchschnittspreis, Punktfarbe (kleiner Ring) = Kategorie, Größe der Punkte = Anzahl der Objekte nach Art, Versatz = Objektart.
-* Oder mit Airbnb-Logo ([SVG](https://svglogo.co/logo/airbnb/) als Punktsymbol.
+* Oder mit Airbnb-Logo ([SVG](https://svglogo.co/logo/airbnb/)) als Punktsymbol.
 * Mehrschichtige Karte: Vier Layer übereinander mit je eigenem Raumtyp (verschobene Symbole in Rautenanordnung).
 ## Vorteile der Methode
 * Hohe Informationsdichte: Anzahl, Preis und Typen können in einer oder mehreren Karten gleichzeitig sichtbar gemacht werden.
@@ -139,7 +149,7 @@ Neue Felder erstellen:
 * _g_proz_gueltig__ → Stimmenanteil in Prozent.
 5. __Symbolisierung__
 * Regelbasierte Darstellung: Jede Partei erhält ihre typische Parteifarbe.
-* Value-by-Alpha Mapping: Transparenz wird proportional zum Stimmenanteil geregelt:
+* Value-by-Alpha Mapping: Transparenz wird proportional zum Stimmenanteil geregelt
 `set_color_part('white', 'alpha', scale_linear("g_proz_gueltig", min("g_proz_gueltig"), max("g_proz_gueltig"), 200, 0))`
 * Ergebnis: Farbton = Siegerpartei, Farbintensität = Stärke des Ergebnisses
 5. __Darstellung & Vergleich__
