@@ -10,8 +10,8 @@ Kontakt: phsc3459@bht-berlin.de & philipp.schaedler@gmail.com
 [EP.02 Gitterchoroplethenkarte](#EP.02)<br>
 [EP.03 Punktrasterkarte](#EP.03)<br>
 [EP.04 Value-by-Alpha](#EP.04)<br>
-[EP.05 Tilemaps](#EP.05)<br>
-[EP.06 Flowmaps](#EP.06)<br>
+[EP.05 Tilemap](#EP.05)<br>
+[EP.06 Flowmap](#EP.06)<br>
 [EP.07 Mesh-Daten](#EP.07)<br>
 [EP.08 Animationen in QGIS](#EP.08)<br>
 [EP.09 3D-Gebäudemodelle](#EP.09)<br>
@@ -24,26 +24,26 @@ Kontakt: phsc3459@bht-berlin.de & philipp.schaedler@gmail.com
 ## Ergebnis
 Die Karte im A3 Format umfasst zwei ähnliche Darstellungen der Bevölkerungsdichte in Berlins nach Planungsräumen (LOR):
 * Einfache Choroplethenkarte – Bevölkerungszahl gemessen auf die Gesamtfläche 
-* Dasymetrische Choroplethenkarte – zugeschnittene Bevölkerungszahl auf tatsächlich bewohntem Gebiete
+* Dasymetrische Choroplethenkarte – zugeschnittene Bevölkerungszahl auf tatsächlich bewohntem Gebiet
 ## Arbeitsschritte
 1. __Datenbasis__
 * Planungsräume (LOR 2021) als Shapefile von der Senatsverwaltung [downloaden](https://www.berlin.de/sen/sbw/stadtdaten/stadtwissen/sozialraumorientierte-planungsgrundlagen/lebensweltlich-orientierte-raeume/).
-* Einwohnerzahlen [downloaden](https://www.berlin.de/sen/sbw/stadtdaten/stadtwissen/monitoring-soziale-stadtentwicklung/bericht-2021/tabellen/=)
+* Einwohnerzahlen [downloaden](https://www.berlin.de/sen/sbw/stadtdaten/stadtwissen/monitoring-soziale-stadtentwicklung/bericht-2021/tabellen/=).
 * Einwohnerzahlen (CSV, Stand Januar 2023) bereinigen (Kopfzeilen löschen, nur Einwohner-Spalten behalten, 1000er-Trennpunkte entfernen) und als Ganzzahlen importieren.
 2. __Join__
 * PLR-ID als Ganzzahlspalte im Shapefile anlegen.
 * CSV und Geometrien per Attribute nach Feldwert verknüpfen.
 3. __Einfache Choroplethenkarte__
-Bevölkerungsdichte berechnen
+* Bevölkerungsdichte berechnen
 `"EW" / ($area / 10000)` → Einwohner je Hektar
 Symbolisierung: abgestuft, Klassifizierung nach Jenks, Farbverlauf.
 4. __Dasymetrische Choroplethenkarte__
-Corine Land Cover Daten (CLC) [downloaden](https://land.copernicus.eu/en/technical-library) und auf urbane Codes 111 und 112 filtern.
+* Corine Land Cover Daten (CLC) [downloaden](https://land.copernicus.eu/en/technical-library) und auf urbane Codes 111 und 112 filtern.
 * Mit _Auflösen_ zusammenführen → Urban Fabric.
 * _Verschneidung_ mit LOR-Einwohnern.
 * Dichte nur bezogen auf urbane Fläche berechnen.
 * Extremwerte prüfen und ggf. manuell löschen.
-* Symbolisierung analog zur einfachen Karte; Zusatzfeld unbewohnte Fläche
+* Symbolisierung analog zur einfachen Karte; Zusatzfeld unbewohnte Fläche.
 ## Vorteile der Methode
 * Nur bewohnte Flächen berücksichtigt, unbewohnte (Wälder, Parks, Wasser) ausgeschlossen.
 * Hot Spots innerstädtischer Dichte treten klar hervor.
@@ -64,10 +64,10 @@ Corine Land Cover Daten (CLC) [downloaden](https://land.copernicus.eu/en/technic
 Die Hexagon Choroplethenkarte (Seitenlänge = 500 m) zeigt die Verteilung von Kirschbäumen in Berlin. Einige Hotspots fallen auf. Am ehemaligen Grenzstreifen zwischen Ost- und Westberlin sind viele Kirschbäume gepflanzt. Die Verteilung ist ungleichmäßig.
 ## Arbeitsschritte
 1. __Daten beschaffen & laden__
-* Bezirksgrenzen und Baumbestand (Straßen- und Anlagenbäume)[downloaden](https://fbinter.stadt-berlin.de/fb/index.jsp)
+* Bezirksgrenzen und Baumbestand (Straßen- und Anlagenbäume) [downloaden](https://fbinter.stadt-berlin.de/fb/index.jsp).
 * Stadtgrenze als Clip-Geometrie bereitstellen.
 2. __Baumarten filtern__
-* In beiden Baum-Layern Kirschbäume selektieren, z. B. per Ausdruck
+* In beiden Baum-Layern Kirschbäume selektieren, z. B. per Ausdruck.
 `art_dtsch ILIKE '%kirsche%'`
 * Nur ausgewählte Bäume als eigener Punktlayer exportieren.
 3. __Hexagon-Gitter erzeugen__
@@ -109,7 +109,7 @@ Die Punktrasterkarte ermöglicht eine angepasste Rasteransicht, in diesem Fall m
 * Neue Spalten anlegen (Boolean-Felder für jeden Typ oder Summen/Anteile).
 * NULL-Werte und Ausreißer (z. B. Extrempreise) bereinigen.
 3. __Rastererstellung & Spatial Join__
-*Regelmäßiges Gitter (in diesem Fall 2 km Kantenlänge) über Berlin erzeugen.
+* Regelmäßiges Gitter (in diesem Fall 2 km Kantenlänge) über Berlin erzeugen.
 * _Mit Attribute nach Position verknüpfen (Zusammenfassung)_: Anzahl und Durchschnittspreise pro Rasterzelle berechnen.
 4. __Darstellungsvarianten__
 * Mehrdimensionale Punktrasterkarte (hier dargestellt):
@@ -127,8 +127,8 @@ Die Punktrasterkarte ermöglicht eine angepasste Rasteransicht, in diesem Fall m
 * Rasterzellen sind weniger vertraut als Bezirke → Orientierung schwieriger.
 * Kombination von Größe, Farbe und Kategorie führt schnell zu visuellem Clutter in verdichteten Gebieten.
 * Lesbarkeit & Vergleichbarkeit:
- * schwer, exakte Werte aus Punktgrößen abzuleiten.
- * hoher Platzbedarf, Klassengrenzen nicht direkt vergleichbar.
+  * schwer, exakte Werte aus Punktgrößen abzuleiten.
+  * hoher Platzbedarf, Klassengrenzen nicht direkt vergleichbar.
 * Fehlinterpretationen möglich: Punkte könnten als exakte Standorte verstanden werden.
 
 <br><br>
@@ -179,7 +179,7 @@ Neue Felder erstellen:
 <br><br>
 <a id="EP.05"></a>
 <br>
-# EP.05 | Tile-Mapping | Vekehrsunfälle mit Personenschaden |
+# EP.05 | Tile-Maps | Verkehrsunfälle mit Personenschaden |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_05.png)
 ## Ergebnis
 Die Tile Map vergleicht die Anzahl der Verkehrsunfälle mit Personenschaden zwischen den Bundesländern der BRD. In Norddeutschland sollte man besonders vorsichtig fahren. Erstaunlich ist die niedrige Unfallquote von Hessen als Verkehrsknotenpunkt.
@@ -203,7 +203,7 @@ Die Tile Map vergleicht die Anzahl der Verkehrsunfälle mit Personenschaden zwis
 * Beschriftung: Kürzel-Spalte als Text in der Kachelmitte.
 * Quadratfüllung in Klassenfarbe
 6. __Layout__
-* Titel, Quellenangabe; eutraler Hintergrund.
+* Titel, Quellenangabe; Neutraler Hintergrund.
 ## Vorteile der Methode
 * Vergleichbarkeit ohne Flächenbias: Alle Bundesländer gleich groß → Werte sind auf einen Blick vergleichbar; kleine Länder gehen nicht unter.
 * Aufgeräumte, kompakte Darstellung; eignet sich für Nicht-Fachpublikum (Presse/Online).
@@ -215,7 +215,7 @@ Die Tile Map vergleicht die Anzahl der Verkehrsunfälle mit Personenschaden zwis
 <br><br>
 <a id="EP.06"></a>
 <br>
-# EP.06 | Flowmaps | Flucht aus dem Südsudan |
+# EP.06 | Flowmap | Flucht aus dem Südsudan |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_06.png)
 ## Ergebnis
 Der Südsudan ist von inneren Unruhen erschüttert. Die Lebensgrundlage von vielen Menschen ist sehr unsicher. Deshalb sind mehere Millionen Menschen (insbesondere in die Nachbarländer) geflohen.
