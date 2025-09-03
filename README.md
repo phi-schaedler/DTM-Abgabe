@@ -202,26 +202,36 @@ Zwischen 2010 und 2024 verließen rund 7 Mio. Flüchtlinge Syrien. Die F
 Ein GIF zeigt zeigt wie Orkan Daria Ende Januar 1990 mit über Westeuropa und Deutschland hinwegzieht. Es veranschaulicht die Bewegung des Windes über eine zeitliche Abfolge im Stundentakt. Im Frame sind Datum und Uhrzeit und Windvektoren aus einem GRIB Mesh Datensatz enthalten. 
 ## Arbeitsschritte
 1. __Datenbeschaffung__
-   * Verwaltungsgrenzen Deutschlands und den GRIB Datensatz mit Windgeschwindigkeiten [herunterladen](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download) (10m u-component of wind, 10m v-component of wind)
-3. Symbolisierung – Mesh Layer auf Vektor Darstellung umstellen, passendes Farbschema wählen
-4. Zeitsteuerung – Layereigenschaft „Zeitlich“ einstellen
-5. Zeitstempel – neuen Punkt Layer anlegen
-* Symbol auf transparent setzen
-* Beschriftung: format_date(@map_start_time, 'd. MMMM yyyy') || '\n'  || format_date(@map_start_time, 'HH:mm')
-* Zeitlich: „Nur Layer neuzeichnen“
-5. Kartenlayout – Ansicht → Dekorationen: Maßstab, Titel, Impressum anlegen
-6. Export – Animation mit dem Uhr Werkzeug abspielen und einzelne Frames als PNG ausgeben
-7. Post Processing – Bildserie in Photoshop zu einer GIF Datei zusammenfügen ([Guide](https://www.adobe.com/africa/learn/photoshop/web/make-animated-gif))
+   * Verwaltungsgrenzen Deutschlands [herunterladen](https://www.naturalearthdata.com/downloads/)
+   * GRIB Datensatz mit den Windgeschwindigkeiten vom 24.01.-26.01.1990. [herunterladen](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels?tab=download) (10m u-component of wind, 10m v-component of wind)
+2. __Datenaufbereitung
+   * Grenzen mit _Auflösen_ vereinfachen, Füllung transparent darstellen, Umrisse beibehalten
+   * GRIB-Layer in QGIS importieren und Symbolisierung auf Vektor-Darstellung umstellen
+3. Symbolisierung & Zeitsteuerung
+   * Passendes Farbschema und Pfeildarstellung für Windrichtung und -stärke auswählen
+   * Unter _Zeitlich_ die dynamische Zeitsteuerung aktivieren und den gewünschten Zeitbereich definieren.
+4. __Zeitstempel & Kartenelemente__
+  * Temporären Punktlayer anlegen, Symbolisierung transparent, Beschriftung mit: `format_date(@map_start_time, 'd. MMMM yyyy') || '\n' || format_date(@map_start_time, 'HH:mm')`
+  * Maßstab, Titel, Impressum als Dekoration einfügen
+5. __Animation & Export__
+  * Mit dem Uhr-Symbol in QGIS die Sequenz abspielen, FPS und Tempo einstellen
+  * Einzelbilder als PNG exportieren
+  * Extern ([Photoshop](https://www.adobe.com/africa/learn/photoshop/web/make-animated-gif)) oder Python-Skript) Bilder zu einem GIF zusammenfügen
 ## Vorteile der Methode
-* Intuitive Visualisierung des Sturmverlaufs
-* Verständlich ohne meteorologische Fachkenntnisse
-* Hohe gestalterische Freiheit (Farben, Vektorpfeile, Geschwindigkeit)
-* Ergebnis ist plattformunabhängig und schnell teilbar
+* Zeitliche Entwicklung des Sturms wird intuitiv vermittelt.
+* Einfache Verständlichkeit: Auch Laien können Bewegungen und Intensität sofort nachvollziehen.
+* Farben, Pfeile, Geschwindigkeit und Hintergrund frei wählbar.
+* Besonders geeignet für Präsentationen, Medien und Online-Plattformen.
+* Standardisierte Grundlage: GRIB-Daten bieten gleichmäßige räumliche Auflösung für Vergleiche.
 ## Nachteile der Methode
-* Exakte Zahlenwerte fehlen; eine Legende lässt sich nur schwer integrieren
-* GIFs können in der Regel weder pausiert noch zurückgespult werden
-* Die eigentliche GIF Erstellung erfolgt außerhalb von QGIS und erfordert Zusatztools
-* Dateigröße kann auf Onlineplattformen schnell zu einem Problem werden (Auflösung, Bittiefe und/oder Anzahl der Frames muss reduziert werden)
+* Fehlende Quantifizierung: Exakte Werte (z. B. m/s) und detaillierte Legenden fehlen oft.
+* Beschränkungen von GIFs:
+  * Nicht interaktiv (kein Zoomen, Stoppen, Zurückspulen).
+  * Reduzierte Qualität (Farbtiefe, Auflösung) durch Komprimierung.
+  * Große Dateigröße bei längeren Sequenzen problematisch.
+* Technische Hürden: GIF-Erstellung nicht direkt in QGIS möglich, externe Tools nötig.
+* Große GRIB-Datenmengen beanspruchen Speicher und Leistung.
+* Zellgrenzen können unnatürlich wirken und reale Strukturen zerschneiden.
 
 <br><br>
 <a id="EP.08"></a>
