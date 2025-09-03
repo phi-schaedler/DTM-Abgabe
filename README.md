@@ -24,7 +24,7 @@ Kontakt: phsc3459@bht-berlin.de & philipp.schaedler@gmail.com
 ## Ergebnis
 Die Karte im A3 Format umfasst zwei ähnliche Darstellungen der Bevölkerungsdichte in Berlins nach Planungsräumen (LOR):
 * Einfache Choroplethenkarte – Bevölkerungszahl gemessen auf die Gesamtfläche 
-* Dasymetrische Choroplethenkarte – zugeschnittene Bevölkerungszahl auf tatsächlich bewohnte Gebiete
+* Dasymetrische Choroplethenkarte – zugeschnittene Bevölkerungszahl auf tatsächlich bewohntem Gebiete
 ## Arbeitsschritte
 1. __Datenbasis__
 * Planungsräume (LOR 2021) als Shapefile von der Senatsverwaltung [downloaden](https://www.berlin.de/sen/sbw/stadtdaten/stadtwissen/sozialraumorientierte-planungsgrundlagen/lebensweltlich-orientierte-raeume/).
