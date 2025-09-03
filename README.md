@@ -76,29 +76,41 @@ Die Hexagon Choroplethenkarte (Seitenlänge = 500 m) zeigt deutlich, dass 
 <br><br>
 <a id="EP.03"></a>
 <br>
-# EP.03 | Punktrasterkarten (AirBnB Berlin)
+# EP.03 | Punktrasterkarten | AirBnB Berlin |
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_03.png)
 ## Ergebnis
-Die Punkt-Rasterkarte zeigt, dass sich AirBnB-Angebote in Berlin stark auf die innerstädtischen Bezirke konzentrieren. In den 2x2 km-Zellen von Mitte, Kreuzberg, Friedrichshain und Prenzlauer Berg treten sowohl die höchsten Angebotszahlen (bis > 350 Wohnungen/Häuser pro Raster) als auch die höchsten Durchschnittspreise (> 200 EUR/Nacht) auf. In den Außenbezirken nimmt die Zahl der Inserate deutlich ab, und die Preise liegen überwiegend unter 100 EUR/Nacht. Hotelzimmer häufen sich erwartungsgemäß im touristischen Zentrum innerhalb der S-Bahn-Ringbahn, während geteilte und private Zimmer häufiger in angrenzenden Wohngebieten erscheinen. Insgesamt erlaubt das mehrdimensionale gleichmäßige Raster, Hot-Spots schnell zu erkennen.
+Die Punktrasterkarte ermöglicht eine angepasste Rasteransicht, in diesem Fall mit 5 Variabeln. Es wird der Preis und die Anzahl an unterschiedlichen Unterkünfte dargestellt. Insbesondere in den Innenstadtbezirken häuft sich Unterkunftsanzahl. Die Preise sind zum Teil unabhängig davon und richten sich möglicherweise eher nach der Lage innerhalb der Stadt (angesagte und unbeliebte Bezirke). 
 ## Arbeitsschritte
-1.	Datenbeschaffung – [InsideAirBnB-Portal](https://insideairbnb.com/) -> listings.csv (Quelldaten aufbereiten -> auf Extremwerte achten, NULL-Werte entfernen)
-2.	Datenimport in QGIS – CSV als Punktgeometrie importieren
-3.	Attributaufbereitung und Join – Preis (price) und Objekt-ID zusammenfassen; Anzahl und Durchschnitt pro Typ berechnen.
-4.	Rastererstellung – 2x2 km Grid über das Stadtgebiet generieren; Spatial Join -> Zuteilung jeder Anzeige zur entsprechenden Rasterzelle
-5.	Kategorisierung – Vier Objektarten: Wohnungen/Häuser, Geteilte Zimmer, Private Zimmer, Hotelzimmer
-6.	Symbolisierung – zentrierte Füllung für jede Objektart
-* Punktgrösse = Durchschnittspreis pro Nacht
-* Farbe = Anzahl der Objekte je Kategorie
-* Offsetrichtung = Objektart
+1. __Datenbeschaffung & Import__
+* Airbnb-Daten (_listings.csv_) von __InsideAirbnb__ [downloaden](https://insideairbnb.com/)
+* CSV in QGIS als Punktlayer importieren (Koordinatenfelder definieren).
+* Bezirksgrenzen über WFS-Verbindung aus dem Geoportal Berlin laden.
+2. __Datenaufbereitung__
+* Listings nach „room_type“ (Entire home, Private room, Shared room, Hotel room) klassifizieren.
+* Neue Spalten anlegen (Boolean-Felder für jeden Typ oder Summen/Anteile).
+* NULL-Werte und Ausreißer (z. B. Extrempreise) bereinigen.
+3. __Rastererstellung & Spatial Join__
+*Regelmäßiges Gitter (in diesem Fall 2 km Kantenlänge) über Berlin erzeugen.
+* _Mit Attribute nach Position verknüpfen (Zusammenfassung)_: Anzahl und Durchschnittspreise pro Rasterzelle berechnen.
+4. __Darstellungsvarianten__
+* Mehrdimensionale Punktrasterkarte (hier dargestellt):
+* Punktfarbe (großer Ring) = Durchschnittspreis, Punktfarbe (kleiner Ring) = Kategorie, Größe der Punkte = Anzahl der Objekte nach Art, Versatz = Objektart.
+* Oder mit Airbnb-Logo ([SVG](https://svglogo.co/logo/airbnb/) als Punktsymbol.
+* Mehrschichtige Karte: Vier Layer übereinander mit je eigenem Raumtyp (verschobene Symbole in Rautenanordnung).
 ## Vorteile der Methode
-* Vergleichbarkeit – Jede Rasterzelle besitzt identische Fläche - statistische Kennzahlen (Dichte, Mittelwerte) sind direkt vergleichbar und nicht von Verwaltungsgränzen abhängig
-* Hoher Informationsgehalt – Bei guter Umsetzung kann eine sehr hohe Informationsdichte vermittelt werden ohne, dass die Karte überladen wirkt.
-* Visualisierung – Gleichmässiges Raster erzeugt ein regelmässig strukturiertes Kartenbild, das Hot-Spots sofort erkennbar macht.
+* Hohe Informationsdichte: Anzahl, Preis und Typen können in einer oder mehreren Karten gleichzeitig sichtbar gemacht werden.
+* Vergleichbarkeit: Rasterzellen haben gleiche Fläche → Muster unabhängig von Verwaltungsgrenzen erkennbar.
+* Hot-Spot-Erkennung: Klare räumliche Muster (z. B. viele teure Angebote in Mitte, Friedrichshain, Kreuzberg, Prenzlauer Berg).
+* Sowohl in einer Gesamtdarstellung als auch in getrennten thematischen Karten umsetzbar.
+* Anschaulich für Publikum: Farbrampen, Punktsymbole oder Logos vermitteln Tendenzen intuitiv.
 ## Nachteile der Methode
-* Verlust lokaler Details – Innerhalb einer 2 km-Zelle können starke Unterschiede verborgen bleiben (z. B. Kiezzentren vs. Nebenstrassen); für eine höhere räumliche Auflösung muss das Kartenformat geändert werden, damit Details noch erkennbar bleiben.
-* Interpretationshürde – Nicht-fachliche Leserinnen und Leser sind an Bezirksgrenzen gewöhnt; Rasterzellen sind weniger intuitiv verortbar.
-* Parameter-Abhängigkeit – Ergebnisse hängen stark von Rastergrösse und -ausrichtung ab; andere Gittergrössen können andere Muster suggerieren.
-* Symbolüberladung – Mehrere Variablen (Grösse + Farbe + Kategorie) in dicht bebauten Gebieten führen leicht zu visuellem Clutter und erschweren das Kartenlesen.
+* Detailverlust: Innerhalb einer Rasterzelle bleiben feine Unterschiede unsichtbar.
+* Rasterzellen sind weniger vertraut als Bezirke → Orientierung schwieriger.
+* Kombination von Größe, Farbe und Kategorie führt schnell zu visuellem Clutter in verdichteten Gebieten.
+* Lesbarkeit & Vergleichbarkeit:
+ * schwer, exakte Werte aus Punktgrößen abzuleiten.
+ * hoher Platzbedarf, Klassengrenzen nicht direkt vergleichbar.
+* Fehlinterpretationen möglich: Punkte könnten als exakte Standorte verstanden werden.
 
 <br><br>
 <a id="EP.04"></a>
@@ -108,17 +120,17 @@ Die Punkt-Rasterkarte zeigt, dass sich AirBnB-Angebote in Berlin stark auf die i
 ## Ergebnis
 Mit Value-by-Alpha wird die die Höhe eines Wertes durch Farbintensität ausgedrückt. In diesem Fall %-Stimmenanteil der Siegerpartei in der jeweiligen Bundestagswahl.
 ## Arbeitsschritte
-1. Datenbeschaffung
+1. __Datenbeschaffung__
 * Wahlkreis-Shapefile (generalisiert) [downloaden](https://www.bundeswahlleiterin.de/bundestagswahlen/2025/wahlkreiseinteilung/downloads.html)
 * endgültigen Wahlergebnisse [downloaden](https://bundeswahlleiterin.de/bundestagswahlen/2025/ergebnisse/opendata.html) (CSV/Kerg-Datei) von 2021 und 2025 
-2. Datenaufbereitung
+2. __Datenaufbereitung__
 * In Excel irrelevante Spalten und Zeilen löschen, nur gültige Zweitstimmen der Parteien SPD, CDU/CSU, Grüne, Linke, AfD behalten.
 * CSU-Werte in Bayern der CDU zurechnen.
 * Als CSV exportieren, Wahlkreisnummer (_WKR_NR_) als Integer definieren.
-3. Datenverknüpfung
+3. __Datenverknüpfung__
 * CSV und Wahlkreis-Geometrien in QGIS laden.
 * Mit Attribute nach Feldwert verknüpfen über „WKR_NR“ joinen.
-4. Attributberechnung
+4. __Attributberechnung__
 Neue Felder erstellen:
 * _g_value__ → Stimmenzahl der siegreichen Partei
 `array_max( array( "SPD" , "CDU" , "Gruenen" , "AFD" , "Linke"))`
@@ -130,7 +142,6 @@ Neue Felder erstellen:
 * Value-by-Alpha Mapping: Transparenz wird proportional zum Stimmenanteil geregelt:
 `set_color_part('white', 'alpha', scale_linear("g_proz_gueltig", min("g_proz_gueltig"), max("g_proz_gueltig"), 200, 0))`
 * Ergebnis: Farbton = Siegerpartei, Farbintensität = Stärke des Ergebnisses
-`set_color_part( 'black','alpha',scale_linear( "g_proz_gueltig", 19,47,255,0)`
 5. __Darstellung & Vergleich__
 * Karten für 2021 und 2025 nebeneinanderstellen, um Veränderungen sichtbar zu machen.
 ## Vorteile der Methode
