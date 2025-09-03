@@ -276,7 +276,7 @@ Ein GIF zeigt wie Orkan Daria Ende Januar 1990 über Westeuropa und Deutschl
 5. __Animation & Export__
   * Mit dem Uhr-Symbol in QGIS die Sequenz abspielen, FPS und Tempo einstellen
   * Einzelbilder als PNG exportieren
-  * Extern ([Photoshop](https://www.adobe.com/africa/learn/photoshop/web/make-animated-gif)) oder Python-Skript) Bilder zu einem GIF zusammenfügen
+  * Extern ([Photoshop](https://www.adobe.com/africa/learn/photoshop/web/make-animated-gif) oder Python-Skript) Bilder zu einem GIF zusammenfügen
 ## Vorteile der Methode
 * Zeitliche Entwicklung des Sturms wird intuitiv vermittelt.
 * Einfache Verständlichkeit: Auch Laien können Bewegungen und Intensität sofort nachvollziehen.
@@ -346,7 +346,7 @@ Eine statische Karte (PNG) zeigt alle in der Nacht vom 17./18. November 20
 Für einen kleinen Teil des Chemnitzer Stadtgebiets wurde eine Karte erzeugt, welche ein 2,5D Gebäudemodell darstellt. Dabei wurden die Höhen aus den öffentlich zugänglichen Shapefiles LOD2 (Level of Detail 2) erzeugt.
 ## Arbeitsschritte
 1. __Datenbeschaffung__
-    * offene 3D Gebäudedaten für den gewünschten Ausschnitt [herunterladen](https://www.geodaten.sachsen.de/downloadbereich-digitale-3d-stadtmodelle-4875.html) und in QGIS importieren 
+    * offene 3D Gebäudedaten für den gewünschten Ausschnitt [downloaden](https://www.geodaten.sachsen.de/downloadbereich-digitale-3d-stadtmodelle-4875.html) und in QGIS importieren 
 2. __Symbolisierung__
     * in den Layer Eigenschaften den Stil 2.5 D wählen
     * „GebMSHoehe“ als Höhenattribut setzen
