@@ -1,4 +1,4 @@
-# DTM Abschlussaufgabe Sommer Semester 25
+# | DTM | Abschlussaufgabe | SOSE25 |
 ## Impressum
 Autor: Philipp Schädler
 Herausgeber: BHT  
