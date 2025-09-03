@@ -139,30 +139,35 @@ Eine Weitere Karte wurde für den Zuwachs der Afd zwischen 2021 und 2025 erstell
 # EP.05 | Tile-Mapping (Anteil der zulassungsbeschränkten Studiengänge je Bundesland)
 ![image](https://github.com/phi-schaedler/B10-DTM/blob/61ab35092725aa2dbd949466cb1f6756d207d618/Files/Schaedler_Philipp_Arbeitsaufgabe_05.png)
 ## Ergebnis
-Die erstellte Tile Map Karte macht auf einen Blick sichtbar, wie stark der Anteil zulassungsbeschränkter Studiengänge zwischen den Bundesländern variiert. Stadtstaaten und hochschulstarke westdeutsche Länder weisen die höchsten Quoten auf, während mehrere Flächenländer im Osten deutlich unter dem Bundesdurchschnitt liegen. 
+Die Tile Map vergleicht die Anzahl der Verkehrsunfälle mit Personenschaden zwischen den Bundesländern der BRD. In Norddeutschland sollte man besonders vorsichtig fahren. Erstaunlich ist die niedrige Unfallquote von Hessen als Verkehrsknotenpunkt.
 ## Arbeitsschritte
-1. Datenvorbereitung – CSV Tabelle
-* Liste der Länderkürzel und Namen anlegen
-* Spalte mit Prozentwerten der [zulassungsbeschränkten Studiengänge](https://hochschuldaten.che.de/) ergänzen
-* Datei als CSV speichern
-2. Grundlage – Gitter erzeugen
-* Rechteckiges Raster über Deutschland skizzieren
-* Sechzehn Zellen auswählen, die der Lage der Bundesländer möglichst gut entsprechen
-3. Geometrie anpassen – Verschieben & Skalieren
-* Kacheln gemäß Aufgabenstellung in einem 4x4 Raster anordnen, sodass die relative geographische Lage weitestgehend erhalten bleibt.
-4. Attributpflege – Kürzel zuweisen
-* Neue Spalte im Kachel Layer erstellen
-* Jede Zelle mit passendem Länderkürzel versehen
-5. Tabellenverknüpfung – Join nach Feldwert
-* CSV per Länderkürzel mit dem Kachel Layer verbinden
-6. Symbolisierung – Abgestufte Darstellung
-* Farbverlauf auf die Prozentspalte anwenden
+1. __Grundlage erstellen__
+* Mit Gitter erzeugen ein rechteckiges Raster über der ungefähren Ausdehnung Deutschlands anlegen (Seitenlänge beliebig, wird später angepasst).
+* 16 Kacheln wählen, die die Lage der Bundesländer grob wiedergeben; Auswahl als neuen Layer speichern.
+* Verkehrsdaten [downloaden](https://www.statistikportal.de/de/transport-und-verkehr/strassenverkehrsunfaelle)
+2. __Geometrie anpassen__
+* Alle ausgewählten Kacheln mit den Erweiterten Digitalisierungswerkzeugen verschieben und skalieren, bis Form und Größe ungefähr Deutschland entsprechen (4×4-Raster).
+* Bei Bedarf feintunen (Stadtstaaten liegen innerhalb anderer Länder → pragmatische Kompromisse).
+3. __Attribute vorbereiten__
+* Im Kachel-Layer eine Spalte für Länderkürzel (z. B. “BE”, “BW”…).
+* In Excel/CSV die thematische Tabelle anlegen (Verkehrsdaten).
+* Als CSV speichern und in QGIS als getrennte Textdatei (ohne Geometrie) laden.
+4. __Join & Datenpflege__
+* CSV über das Länderkürzel mit dem Kachel-Layer verknüpfen (_Attribute nach Feldwert verknüpfen_).
+* zusätzlich ID-Spalte pflegen; unnötige Felder entfernen.
+5. __Symbolisierung__
+* _Abgestufte Darstellung_ auf die Kennzahl (Unfälle) legen geeignet sind Quartile; passenden Farbverlauf wählen.
+* Beschriftung: Kürzel-Spalte als Text in der Kachelmitte.
+* Quadratfüllung in Klassenfarbe
+6. __Layout__
+* Titel, Quellenangabe; eutraler Hintergrund.
 ## Vorteile der Methode
-* Tile Mapping – klare Lesbarkeit: Gleich große Felder eliminieren Flächenverzerrung und erleichtern den Vergleich
-* Bearbeitung in QGIS – geringe Softwarehürde: Alle Schritte lassen sich mit Bordmitteln ohne Zusatzplugins ausführen
+* Vergleichbarkeit ohne Flächenbias: Alle Bundesländer gleich groß → Werte sind auf einen Blick vergleichbar; kleine Länder gehen nicht unter.
+* Aufgeräumte, kompakte Darstellung; eignet sich für Nicht-Fachpublikum (Presse/Online).
+* Erstellung ohne Zusatz-Plugins, lässt sich schnell für neue Themen wiederverwenden.
 ## Nachteile der Methode
 * Tile Mapping – begrenzte Genauigkeit: Stadtstaaten wie Berlin oder Bremen lassen sich nur annähernd platzieren
-* Einheitsgröße – Informationsverlust: Flächenbezogene Aspekte (z. B. Hochschuldichte) gehen verloren
+* Einheitsgröße – Informationsverlust: Flächenbezogene Aspekte (z. B. Verkehrsnetz mit Unfallhotspots) gehen verloren
 
 <br><br>
 <a id="EP.06"></a>
