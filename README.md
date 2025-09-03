@@ -1,4 +1,4 @@
-# B10-DTM Abschlussaufgabe SoSe25
+# DTM Abschlussaufgabe Soommer Semester 25
 ## Impressum
 Autor: Philipp Schädler
 Herausgeber: BHT  
