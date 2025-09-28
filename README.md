@@ -1,7 +1,9 @@
 # | DTM | Abschlussaufgabe | SOSE25 |
 ## Impressum
-Autor: Philipp Schädler /n
-Herausgeber: BHT  
+Autor: Philipp Schädler
+
+Herausgeber: BHT
+
 Kontakt: phsc3459@bht-berlin.de & philipp.schaedler@gmail.com
 
 <br><br><br>
